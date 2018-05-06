@@ -1,0 +1,26 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+    }
+}
+
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+mainClassName = 'barrenlandanalysis.BarrenLandAnalysisCLI'
+
+dependencies {
+	compile project(':shared')
+}
+
+assemble.dependsOn(shadowJar)
+
+jar.enabled = false
+
+shadowJar {
+	baseName = 'BarrenLandAnalysis-cli'
+	classifier = null
+	version = null
+}

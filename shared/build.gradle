@@ -1,0 +1,5 @@
+jar {
+	baseName = 'BarrenLandAnalysis-shared'
+	classifier = null
+	version = null
+}
