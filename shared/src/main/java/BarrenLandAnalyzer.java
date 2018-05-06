@@ -1,3 +1,5 @@
+package barrenlandanalysis;
+
 import java.util.Scanner;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -135,7 +137,8 @@ public class BarrenLandAnalyzer {
         return regionAreas;
     }
 
-    public void visualizeLand(String fileName) {
+
+    public BufferedImage visualizeLandRaw() {
         // initialize color list
         List<Color> debugColorList = new ArrayList<Color>();
         debugColorList.add(Color.white);
@@ -171,13 +174,45 @@ public class BarrenLandAnalyzer {
             }            
         }
 
+        BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        img.getRaster().setPixels(0, 0, width, height, flattenedData);
+
+        return img;
+    }
+    public void visualizeLandToFile(String fileName) {
+
+        BufferedImage img = visualizeLandRaw();
+
         // write image to file
         try {
-            BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-            img.getRaster().setPixels(0, 0, width, height, flattenedData);
+
             ImageIO.write(img, "bmp", new File(fileName + ".bmp"));
         } catch (IOException e) {
             System.err.println("IOException when writing visualization file!");
         }
+    }
+
+    public String analyzeInputString(String inputString) {
+        List<Rectangle> barrenRectangles = parseBarrenLandInput(inputString);
+
+        // fill land grid appropriately
+        markBarrenLand(barrenRectangles);
+        markFertileLand();
+
+        // calculate area in square meters for all fertile regions
+        Map<Integer, Integer> regionAreas = calculateAreasOfFertileRegions();
+
+        // sort region areas
+        List<Integer> sortedAreas = new ArrayList<Integer>(regionAreas.values());
+        Collections.sort(sortedAreas);
+
+        // output text according to specifications
+        String outputString = "";
+        for (Integer area : sortedAreas) {
+            outputString += Integer.toString(area);
+            outputString += " ";
+        }
+
+        return outputString.trim();
     }
 }

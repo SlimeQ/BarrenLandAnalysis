@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Barren Land Analysis</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<link href='https://fonts.googleapis.com/css?family=Ubuntu Mono' rel='stylesheet'>
+<style>
+	html {
+		font-family: 'Ubuntu Mono';font-size: 22px;
+		color: white;
+		background: 
+			linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)),
+			url(https://www.carolinafarmstewards.org/wp-content/uploads/2017/02/Averett-Farm-Field.jpg);
+
+	    background-repeat: no-repeat;
+    	background-size: cover;
+	}
+
+	input, textarea {
+		font-family: 'Ubuntu Mono';font-size: 22px;
+		color: white;
+		background: black;
+	}
+
+	table, th, td {
+		border-collapse: collapse;
+	}
+
+	th {
+		background: black;
+		text-align: left;
+	}
+
+	h1 {
+		font-weight: bold;
+	}
+
+	h2 {
+		font-family: 'Ubuntu Mono';font-size: 22px;
+		color: white;
+		text-align: left;
+		padding-left: 0px;
+		padding-bottom: 0px;
+	}
+
+	.section-box {
+		width: 824px;
+		border: 3px solid white;
+		border-color: white;
+		padding: 10px;
+	}
+
+	.description-box {
+		width: 800px;
+		border: 3px solid white;
+		border-color: white;
+		padding: 10px;
+	}
+
+	.sample-data-table {
+		border: 3px solid white;
+		border-color: white;
+	}
+
+	.submit-button {
+		padding: 3px;
+		width: 100px;
+		align-self: center;
+	}
+
+</style>
+
+<center>
+	<h1><b>Barren Land Analysis</b></h1>
+	<div class=section-box>
+		<div style="width:800px" align=left class=description-box>
+			You have a farm of 400m by 600m where coordinates of the field are from (0, 0) to (399, 599). A portion of the farm is barren, and all the barren land is in the form of rectangles. Due to these rectangles of barren land, the remaining area of fertile land is in no particular shape. An area of fertile land is defined as the largest area of land that is not covered by any of the rectangles of barren land.<br>
+			<br>
+			Read input from STDIN. Print output to STDOUT<br> 
+		</div>
+		<br>
+		<div style="width:800px"><h2><b>Input</b></h2></div>
+		<div style="width:800px" align=left class=description-box>
+			You are given a set of rectangles that contain the barren land. These rectangles are defined in a string, which consists of four integers separated by single spaces, with no additional spaces in the string. The first two integers are the coordinates of the bottom left corner in the given rectangle, and the last two integers are the coordinates of the top right corner.<br>
+		</div>
+		<br>
+		<div style="width:800px"><h2><b>Output</b></h2></div>
+		<div style="width:800px" align=left class=description-box>
+			Output all the fertile land area in square meters, sorted from smallest area to greatest, separated by a space.
+		</div>
+		<br>
+		<div style="width:800px"><h2><b>Sample Data</b></h2></div>
+		<div style="width:800px" align=left class=description-box>
+			<table>
+				<tr>
+					<th>Input</th><th style="width:200px">Output</th>
+				</tr>
+				<tr>
+					<td class=sample-data-table>{“0 292 399 307”}</td><td class=sample-data-table>116800 116800</td>
+				</tr>
+				<tr>
+					<td class=sample-data-table>{“48 192 351 207”, “48 392 351 407”, “120 52 135 547”, “260 52 275 547”}</td><td class=sample-data-table>22816 192608</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div style="width:800px"><h2><b>Implementation</b></h2></div>
+	<div class=section-box>
+		<form id=submission_form>
+			<div style="width:800px" align=left class=description-box>
+				<table style="width:800px">
+					<tr>
+						<td align="right" style="width:100px">Input:</td>
+						<td><textarea rows="4" style="width:100%; resize:vertical;" type="text" id="input-text" th:text="${input}"></textarea></td>
+					</tr>
+				</table>
+				<div style="width: 100%" align=center><input align="center" class=submit-button type="submit" value="Submit"></div>
+			</div>
+			<br>
+			<div style="width:800px" align=left class=description-box>
+				<table style="width:800px">
+					<tr>
+						<td align="right" style="width:100px">Output:</td>
+						<td><input style="width:100%" type="text" readonly="true" id="output-text" th:value="${output}"></td>
+					</tr>
+				</table>
+			</div>
+		</form>
+		<br>
+		<img id=visualization-image th:attr="src=@{${visualization}}" alt="" />
+	</div>
+</center>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+	(function($){
+		function processForm( e ){
+			$.ajax({
+				url: '/analyze',
+				dataType: 'text',
+				type: 'post',
+				contentType: 'text/plain',
+				data: $('#input-text').val(),
+				success: function( data, textStatus, jQxhr ){
+					var response = JSON.parse(data);
+
+					$('#output-text').val( response.output );
+					$('#visualization-image').attr("src", response.visualization);
+				},
+				error: function( jqXhr, textStatus, errorThrown ){
+					console.log( errorThrown );
+				}
+			});
+
+			e.preventDefault();
+		}
+
+		$('#submission_form').submit( processForm );
+	})(jQuery);
+</script>
+
+</html>

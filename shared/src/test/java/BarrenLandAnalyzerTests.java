@@ -11,7 +11,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.InputStream;
 
-public class BarrenLandAnalysisTests {
+import barrenlandanalysis.*;
+
+public class BarrenLandAnalyzerTests {
 
 	@Test
 	public void shouldParseSingleInput() {
@@ -104,19 +106,7 @@ public class BarrenLandAnalysisTests {
 	@Test
 	public void shouldReturnCorrectRegionAreas() {
 		BarrenLandAnalyzer analyzer = new BarrenLandAnalyzer(10, 10);
-
-		// left is 1, center is barren, right is 2
-		for (int x=0; x<10; x++) {
-			for (int y=0; y<10; y++) {	
-				if (x < 5) {
-					analyzer.landGrid[x][y]	= 1;
-				} else if (x == 5) {
-					analyzer.landGrid[x][y]	= -1;
-				} else if (x > 5) {
-					analyzer.landGrid[x][y]	= 2;
-				}
-			}
-		}
+		analyzer.landGrid = getSplitGridTestData(10, 10);
 
 		Map<Integer, Integer> regionAreas = analyzer.calculateAreasOfFertileRegions();
 		assertEquals(50, regionAreas.get(1).intValue(), "There should be 50 square meters of region 1");
@@ -126,25 +116,14 @@ public class BarrenLandAnalysisTests {
 	@Test
 	public void shouldCreateVisualizationFile() {
 		BarrenLandAnalyzer analyzer = new BarrenLandAnalyzer(10, 10);
+		analyzer.landGrid = getSplitGridTestData(10, 10);
 
-		// left is 1, center is barren, right is 2
-		for (int x=0; x<10; x++) {
-			for (int y=0; y<10; y++) {	
-				if (x < 5) {
-					analyzer.landGrid[x][y]	= 1;
-				} else if (x == 5) {
-					analyzer.landGrid[x][y]	= -1;
-				} else if (x > 5) {
-					analyzer.landGrid[x][y]	= 2;
-				}
-			}
-		}
 		// delete old file if it exists
 		File file = new File("test_visualization.bmp");
 		file.delete();
 
 		// create visualization file
-		analyzer.visualizeLand("test_visualization");
+		analyzer.visualizeLandToFile("test_visualization");
 		assertEquals(true, file.exists(), "An image file should have been created.");
 
 		// cleanup
@@ -152,29 +131,30 @@ public class BarrenLandAnalysisTests {
 	}
 
 	@Test
-	public void shouldReadFromStdinAndWriteToStdout() {
-		// cache old in/out streams
-		PrintStream oldOut = System.out;
-		InputStream oldIn = System.in;
-
-		// setup new input stream
-		ByteArrayInputStream in = new ByteArrayInputStream("{\"0 0 2 2\"}, {\"6 6 8 8\"}".getBytes());
-		System.setIn(in);
-
-		// setup new output stream
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		PrintStream psOut = new PrintStream(out);
-		System.setOut(psOut);
-		
-		// run main as if run from the command line
-		String[] args = new String[0];
-		BarrenLandAnalysis.main(args);
+	public void shouldAnalyzeTextAndReturnText() {
+		BarrenLandAnalyzer analyzer = new BarrenLandAnalyzer(10, 10);
+		String outString = analyzer.analyzeInputString("{\"1 0 8 9\"}, {\"0 0 9 0\"}");
 
 		// verify text output
-		assertEquals("9 9", out.toString(), "Text output was incorrect.");
+		assertEquals("9 9", outString, "Text output was incorrect.");
+	}
 
-		// reset to old streams
-		System.setIn(oldIn);
-		System.setOut(oldOut);
+	int[][] getSplitGridTestData(int width, int height) {
+		int[][] landGrid = new int[width][height];
+
+		// left is 1, center is barren, right is 2
+		for (int x=0; x<width; x++) {
+			for (int y=0; y<height; y++) {	
+				if (x < 5) {
+					landGrid[x][y]	= 1;
+				} else if (x == 5) {
+					landGrid[x][y]	= -1;
+				} else if (x > 5) {
+					landGrid[x][y]	= 2;
+				}
+			}
+		}
+
+		return landGrid;
 	}
 }
