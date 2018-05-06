@@ -1,20 +1,9 @@
 package barrenlandanalysis;
 
 import java.util.Scanner;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
-import java.awt.image.BufferedImage;
-import java.awt.Color;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import barrenlandanalysis.BarrenLandAnalyzer;
 
-public class BarrenLandAnalysis {
+public class BarrenLandAnalysisCLI {
     public static void main( String[] args ) {
         BarrenLandAnalyzer analyzer = new BarrenLandAnalyzer(400, 600);
 
@@ -30,7 +19,10 @@ public class BarrenLandAnalysis {
         if (args.length > 0 && args[0].equals("-visualize")) {
             String visualizationFileName = "barren_land_visualization";
             if (args[1].equals("")) {
-
+                visualizationFileName = "barren_land_visualization";
+            }
+            else {
+                visualizationFileName = args[1];
             }
             analyzer.visualizeLandToFile("barren_land_visualization");
         }
