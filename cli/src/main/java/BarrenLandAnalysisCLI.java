@@ -18,13 +18,10 @@ public class BarrenLandAnalysisCLI {
         // Visualize analyzer for debug purposes
         if (args.length > 0 && args[0].equals("-visualize")) {
             String visualizationFileName = "barren_land_visualization";
-            if (args[1].equals("")) {
-                visualizationFileName = "barren_land_visualization";
-            }
-            else {
+            if (!args[1].equals("")) {
                 visualizationFileName = args[1];
             }
-            analyzer.visualizeLandToFile("barren_land_visualization");
+            analyzer.visualizeLandToFile(visualizationFileName);
         }
 
         System.exit( 0 ); //success
