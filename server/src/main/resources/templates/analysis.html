@@ -70,6 +70,19 @@
 		align-self: center;
 	}
 
+	.github-image-container {
+        position: relative;
+        height:50px;
+        width: 400px;
+        overflow: hidden;
+    }
+
+	.github-image {
+	    height: 100%;
+	    width: auto;
+	    overflow: hidden;
+	}
+
 </style>
 
 <center>
@@ -132,6 +145,21 @@
 		<br>
 		<img id=visualization-image th:attr="src=@{${visualization}}" alt="" />
 	</div>
+
+	<table>
+		<tr><td>
+	<div style="width:400px"><h2><b>Test Results</b></h2></div>
+	<div class=section-box style="width:400px">
+		<a href="/reports/shared/index.html" target="_blank">BarrenLandAnalyzer</a><br>
+		<a href="/reports/server/index.html" target="_blank">BarrenLandAnalysis Server</a>
+	</div>
+		</td>
+		<td>
+		<div style="width:400px"><h2><b>Source Code</b></h2></div>
+		<div class=section-box style="width:400px">
+<a href="https://github.com/SlimeQ/BarrenLandAnalysis"><div class=github-image-container><img class=github-image src="view-on-github.png" title="View on Github" alt="Github"></a></div>
+		</div>
+		</td></tr>
 </center>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
