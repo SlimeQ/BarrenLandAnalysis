@@ -13,6 +13,7 @@ mainClassName = 'barrenlandanalysis.BarrenLandAnalysisCLI'
 
 dependencies {
 	compile project(':shared')
+    compile group: 'org.jline', name: 'jline-terminal-jna', version: '3.7.0'
 }
 
 assemble.dependsOn(shadowJar)
