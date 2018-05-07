@@ -1,24 +1,48 @@
 # BarrenLandAnalysis
 
-## Dependencies
+## Problem Description
+You have a farm of 400m by 600m where coordinates of the field are from (0, 0) to (399, 599). A portion of the farm is barren, and all the barren land is in the form of rectangles. Due to these rectangles of barren land, the remaining area of fertile land is in no particular shape. An area of fertile land is defined as the largest area of land that is not covered by any of the rectangles of barren land. 
+Read input from STDIN. Print output to STDOUT 
+### Input 
+You are given a set of rectangles that contain the barren land. These rectangles are defined in a string, which consists of four integers separated by single spaces, with no additional spaces in the string. The first two integers are the coordinates of the bottom left corner in the given rectangle, and the last two integers are the coordinates of the top right corner. 
+### Output 
+Output all the fertile land area in square meters, sorted from smallest area to greatest, separated by a space. 
+
+## Implementation
+
+[View hosted instance on Google Cloud.](http://104.196.213.186/)
+
+### Contents
+- [Project Structure](#project-structure)  
+- [Setup](#setup)
+  - [Dependencies](#dependencies)
+  - [Building](#building)
+  - [Testing](#testing)
+- [Usage](#usage)
+  - [Command Line Interface Usage](#command-line-interface-usage)
+  - [Server Usage](#server-usage)
+
+### Project Structure
+This project contains 3 subprojects, each with their own build configurations and generated jar files.
+- shared (`shared/build/libs/BarrenLandAnalysis-shared.jar`)
+  - A shared library which contains a `BarrenLandAnalyzer` class that can be used to process input.
+- cli (`cli/build/libs/BarrenLandAnalysis-cli.jar`)
+  - A command line application which reads from STDIN and writes to STDOUT.
+- server (`server/build/libs/BarrenLandAnalysis-server.jar`)
+  - A Spring Boot server which provides a friendly web interface for using the Barren Land Analyzer.
+
+### Setup
+#### Dependencies
 A working Java installation is required.
 
-## Structure
-This project contains 3 subprojects:
-- shared
-  - Contains a `BarrenLandAnalyzer` class that can be used to process input.
-- cli
-  - Reads from STDIN, writes to STDOUT.
-- server
-  - Provides a web interface for using the Barren Land Analyzer.
-
-## Building
+#### Building
 This project uses the gradle wrapper. To build, enter `$ ./gradlew build`
 
-## Testing
+#### Testing
 Tests will be run automatically on build, but to force tests to run you can enter `$ ./gradlew test`
 
-## Command Line Interface Usage
+### Usage
+#### Command Line Interface Usage
 The cli package reads from STDIN and writes to STDOUT. The program will immediately wait for a newline terminated input string and then output a string according to the project specifications. Optionally, you can generate an image file to visualize the resulting land grid by using the `-visualize <filename>` switch.
 
 ```
@@ -29,7 +53,9 @@ $ java -jar cli/build/libs/BarrenLandAnalysis-cli.jar -visualize sample_visualiz
 
 ![Visualization](https://github.com/SlimeQ/BarrenLandAnalysis/blob/master/sample_visualization.bmp)
 
-## Server Usage
+**Note:** On Windows systems, copying and pasting sample input from the given docx into a Git bash terminal will result in an encoding error due to the “fancy” quotation marks. This should not be a concern in the standard CMD shell, on Linux systems, or any other UTF-8 shell.
+
+#### Server Usage
 The server package exposes BarrenLandAnalyzer functionality via a web page. To start the server, build the project and run the following command:
 ```$ java -jar server/build/libs/BarrenLandAnalysis-server.jar```
 
