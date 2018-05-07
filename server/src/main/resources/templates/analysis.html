@@ -12,7 +12,7 @@
 		color: white;
 		background: 
 			linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)),
-			url(https://www.carolinafarmstewards.org/wp-content/uploads/2017/02/Averett-Farm-Field.jpg);
+			url(/farm_background.jpg);
 
 	    background-repeat: no-repeat;
     	background-size: cover;
@@ -72,15 +72,28 @@
 
 	.github-image-container {
         position: relative;
-        height:50px;
+        height:100%;
         width: 400px;
         overflow: hidden;
     }
 
 	.github-image {
-	    height: 100%;
-	    width: auto;
+	    height: auto;
+	    width: 100%;
 	    overflow: hidden;
+	}
+
+	a:link {
+		color: white;
+	}
+	a:visited {
+		color: light-gray;
+	}
+	a:hover {
+		color: light-gray;
+	}
+	a:active {
+		color: white;
 	}
 
 </style>
@@ -148,17 +161,17 @@
 
 	<table>
 		<tr><td>
-	<div style="width:400px"><h2><b>Test Results</b></h2></div>
+	<div style="width:400px"><h2><b>JUnit Test Results</b></h2></div>
 	<div class=section-box style="width:400px">
 		<a href="/reports/shared/index.html" target="_blank">BarrenLandAnalyzer</a><br>
 		<a href="/reports/server/index.html" target="_blank">BarrenLandAnalysis Server</a>
 	</div>
 		</td>
 		<td>
-		<div style="width:400px"><h2><b>Source Code</b></h2></div>
-		<div class=section-box style="width:400px">
-<a href="https://github.com/SlimeQ/BarrenLandAnalysis"><div class=github-image-container><img class=github-image src="view-on-github.png" title="View on Github" alt="Github"></a></div>
-		</div>
+		<!-- <div style="width:400px"><h2><b>Source Code</b></h2></div>
+		<div class=section-box style="width:400px"> -->
+		<div class=github-image-container><a href="https://github.com/SlimeQ/BarrenLandAnalysis"><img class=github-image src="view-on-github.png" title="View on Github" alt="Github"></a></div>
+		<!-- </div> -->
 		</td></tr>
 </center>
 
