@@ -30,7 +30,8 @@ $ java -jar cli/build/libs/BarrenLandAnalysis-cli.jar -visualize sample_visualiz
 ![Visualization](https://github.com/SlimeQ/BarrenLandAnalysis/blob/master/sample_visualization.bmp)
 
 ## Server Usage
-The server package exposes BarrenLandAnalyzer functionality via a web page. To start the server, enter `java -jar server/build/libs/BarrenLandAnalysis-server.jar`
+The server package exposes BarrenLandAnalyzer functionality via a web page. To start the server, build the project and run the following command:
+```$ java -jar server/build/libs/BarrenLandAnalysis-server.jar```
 
 The server listens on port 8080 by default. This is a Spring-Boot server with two endpoints:
 
